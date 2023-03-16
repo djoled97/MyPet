@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/onboarding_navigation"
+    app:startDestination="@id/onboardingFirstStep">
+
+    <fragment
+        android:id="@+id/onboardingFirstStep"
+        android:name="com.mypet.ui.onboarding.OnboardingFirstStep"
+        android:label="OnboardingFirstStep" >
+        <action
+            android:id="@+id/action_onboardingFirstStep_to_onboardingSecondStep"
+            app:destination="@id/onboardingSecondStep"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingSecondStep"
+        android:name="com.mypet.ui.onboarding.OnboardingSecondStep"
+        android:label="OnboardingSecondStep" >
+        <action
+            android:id="@+id/action_onboardingSecondStep_to_onboardingFirstStep"
+            app:destination="@id/onboardingFirstStep" />
+    </fragment>
+</navigation>
