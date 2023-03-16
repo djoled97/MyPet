@@ -1,22 +1,23 @@
 package com.mypet.ui.onboarding
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
-import androidx.core.widget.addTextChangedListener
+import android.view.animation.AnimationUtils
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
-import androidx.navigation.fragment.NavHostFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mypet.R
-import com.mypet.databinding.FragmentOnboardingFirstStepBinding
 import com.mypet.databinding.FragmentOnboardingSecondStepBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -30,6 +31,49 @@ class OnboardingSecondStep : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnboardingSecondStepBinding.inflate(inflater, container, false)
+
+
+
+        (binding.petGender as AutoCompleteTextView).setAdapter(
+            ArrayAdapter(
+                requireContext(), R.layout.list_item,
+                listOf(
+                    getString(R.string.spinner_data_female),
+                    getString(R.string.spinner_data_male)
+                )
+            )
+        )
+        (binding.petMicrochip as AutoCompleteTextView).setAdapter(
+            ArrayAdapter(
+                requireContext(), R.layout.list_item,
+                listOf(
+                    getString(R.string.yes),
+                    getString(R.string.no)
+                )
+            )
+        )
+
+
+        binding.petBirthdayLayout.setEndIconOnClickListener {
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val month = calendar.get(Calendar.MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            DatePickerDialog(
+                requireContext(),
+                { _, y, monthOfYear, dayOfMonth ->
+                    calendar.set(y, monthOfYear, dayOfMonth)
+                    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    val dateAsString = sdf.format(calendar.time)
+                    binding.petBirthday.setText(dateAsString)
+                }, year, month, day
+            ).let {
+                it.datePicker.maxDate = Date().time
+                it.show()
+            }
+
+        }
+
         binding.password.doOnTextChanged { _, _, _, _ -> clearErrors() }
         binding.confirmPassword.doOnTextChanged { _, _, _, _ -> clearErrors() }
 
@@ -70,12 +114,15 @@ class OnboardingSecondStep : Fragment() {
 
     private fun swapForms() {
         isRegistrationForm = !isRegistrationForm
+        val animation = AnimationUtils.loadAnimation(requireContext(), android.R.anim.slide_in_left)
         if (isRegistrationForm) {
             binding.petEntryForm.visibility = View.GONE
             binding.registrationForm.visibility = View.VISIBLE
+            binding.registrationForm.startAnimation(animation)
         } else {
             binding.petEntryForm.visibility = View.VISIBLE
             binding.registrationForm.visibility = View.GONE
+            binding.petEntryForm.startAnimation(animation)
         }
 
 

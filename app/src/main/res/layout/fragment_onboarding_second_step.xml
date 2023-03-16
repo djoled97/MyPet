@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="@+id/registrationForm"
+        app:layout_constraintTop_toTopOf="@+id/registrationForm">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/petNameLayout"
@@ -57,8 +57,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/petType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:layout_height="match_parent"
+                android:inputType="text"
+
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -83,14 +85,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/pet_form_gender"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:layout_constraintStart_toStartOf="@+id/petTypeLayout"
             app:layout_constraintTop_toBottomOf="@+id/petTypeLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/petGender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:layout_height="match_parent"
+                android:inputType="none"
+
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -115,6 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/pet_form_birthday"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/baseline_date_range_24"
             app:layout_constraintStart_toStartOf="@+id/petGenderLayout"
             app:layout_constraintTop_toBottomOf="@+id/petGenderLayout">
 
@@ -122,7 +129,10 @@
                 android:id="@+id/petBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:text="@string/date_placeholder"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:inputType="date" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -131,14 +141,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/pet_form_microchip"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:layout_constraintEnd_toEndOf="@+id/petColorLayout"
             app:layout_constraintTop_toBottomOf="@+id/petColorLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/petMicrochip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -147,7 +158,6 @@
         android:id="@+id/registrationForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
