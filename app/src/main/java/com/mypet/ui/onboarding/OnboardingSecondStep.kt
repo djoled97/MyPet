@@ -10,9 +10,12 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.mypet.R
 import com.mypet.databinding.FragmentOnboardingSecondStepBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,14 +27,15 @@ import java.util.regex.Pattern
 @AndroidEntryPoint
 class OnboardingSecondStep : Fragment() {
     private var _binding: FragmentOnboardingSecondStepBinding? = null
+    private val viewModel: OnboardingViewModel by viewModels()
     private val binding get() = _binding!!
     var isRegistrationForm = true
+    private lateinit var snackbar: Snackbar
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnboardingSecondStepBinding.inflate(inflater, container, false)
-
 
 
         (binding.petGender as AutoCompleteTextView).setAdapter(
@@ -52,7 +56,6 @@ class OnboardingSecondStep : Fragment() {
                 )
             )
         )
-
 
         binding.petBirthdayLayout.setEndIconOnClickListener {
             val calendar = Calendar.getInstance()
@@ -85,31 +88,84 @@ class OnboardingSecondStep : Fragment() {
             }
         }
         binding.btnNext.setOnClickListener {
-
-            if (isRegistrationForm) {
-                registerFormValidation()
-                if (binding.passwordLayout.error == null && binding.confirmPasswordLayout.error == null) {
-                    swapForms()
-
-                }
-
-
-            } else {
-
+            val isValid = registerFormValidation()
+            if (isRegistrationForm && isValid) {
+                swapForms()
+            } else if (isValid) {
+                viewModel.createUser(binding.email.text.toString(), binding.password.text.toString())
             }
+
+
         }
 
 
+        viewModel.isRegisteredLiveData.observe(viewLifecycleOwner){
+
+        }
 
         return binding.root
 
     }
 
-    private fun registerFormValidation() {
-        if (!isPassValid()) binding.passwordLayout.error =
-            getString(R.string.registration_form_password_error_text)
-        if (binding.password.text.toString() != binding.confirmPassword.text.toString()) binding.confirmPasswordLayout.error =
-            getString(R.string.registration_form_confirm_password_error_text)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        snackbar = Snackbar.make(
+            binding.root,
+            "All fields are required",
+            Snackbar.LENGTH_SHORT
+        )
+    }
+
+    private fun isOnboardingFormValid(): Boolean {
+        with(binding) {
+            val formData = if (isRegistrationForm) {
+                listOf(
+                    binding.password.text.toString(),
+                    binding.confirmPassword.text.toString(),
+                    binding.email.text.toString()
+                )
+            } else {
+                val petBday =
+                    if (petBirthday.text.toString() == "DD/MM/YYYY") "" else petBirthday.text.toString()
+                listOf(
+                    petName.text.toString(),
+                    petBday,
+                    petBreed.text.toString(),
+                    petType.text.toString(),
+                    petGender.text.toString(),
+                    petColor.text.toString(),
+                    petMicrochip.text.toString()
+                )
+            }
+
+            return formData.any { it != "" }
+        }
+    }
+
+    private fun registerFormValidation(): Boolean {
+        when {
+            !isOnboardingFormValid() -> {
+                snackbar.show()
+                return false
+            }
+            !isPassValid() -> {
+                binding.passwordLayout.error =
+                    getString(R.string.registration_form_password_error_text)
+                return false
+
+            }
+            binding.password.text.toString() != binding.confirmPassword.text.toString() -> {
+                binding.confirmPasswordLayout.error =
+                    getString(R.string.registration_form_confirm_password_error_text)
+                return false
+            }
+            else -> {
+                return true
+            }
+        }
+//        if (!isPassValid())
+//        if (binding.password.text.toString() != binding.confirmPassword.text.toString()) binding.confirmPasswordLayout.error =
+//            getString(R.string.registration_form_confirm_password_error_text)
     }
 
     private fun swapForms() {
