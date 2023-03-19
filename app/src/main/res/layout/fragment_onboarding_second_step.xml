@@ -11,6 +11,9 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/registrationForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/registrationForm">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -65,27 +68,31 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/petBreedLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:enabled="false"
             android:hint="@string/pet_form_breed"
             app:layout_constraintEnd_toEndOf="@+id/petNameLayout"
             app:layout_constraintTop_toBottomOf="@+id/petNameLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/petBreed"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/petGenderLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/pet_form_gender"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:layout_constraintStart_toStartOf="@+id/petTypeLayout"
             app:layout_constraintTop_toBottomOf="@+id/petTypeLayout">
 
@@ -120,8 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/pet_form_birthday"
-            app:endIconMode="custom"
             app:endIconDrawable="@drawable/baseline_date_range_24"
+            app:endIconMode="custom"
             app:layout_constraintStart_toStartOf="@+id/petGenderLayout"
             app:layout_constraintTop_toBottomOf="@+id/petGenderLayout">
 
@@ -129,19 +136,19 @@
                 android:id="@+id/petBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/date_placeholder"
-                android:focusable="false"
                 android:cursorVisible="false"
-                android:inputType="date" />
+                android:focusable="false"
+                android:inputType="date"
+                android:text="@string/date_placeholder" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/petMicroChipLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/pet_form_microchip"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:layout_constraintEnd_toEndOf="@+id/petColorLayout"
             app:layout_constraintTop_toBottomOf="@+id/petColorLayout">
 
