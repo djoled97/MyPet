@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.mypet.databinding.ActivityMainBinding
 import com.mypet.databinding.FragmentHomeBinding
 import com.mypet.ui.onboarding.OnboardingActivity
+import com.mypet.util.SharedPreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,18 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
+    @Inject
+    lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        if (firebaseAuth.currentUser == null) {
-            startActivity(Intent(this, OnboardingActivity::class.java))
-        } else {
             _binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
             val navView: BottomNavigationView = binding.navView
@@ -40,6 +38,8 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.findFragmentById(R.id.fragmentContainerView3) as NavHostFragment
             val navController = navHostFragment.navController
             navView.setupWithNavController(navController)
+        if (firebaseAuth.currentUser == null && sharedPreferencesHelper.onboarding) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
         }
     }
 

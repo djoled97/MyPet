@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mypet.data.AppDatabase
+import com.mypet.util.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,4 +33,8 @@ object MainModule {
     @Provides
     @Singleton
     fun providePetDao(appDatabase: AppDatabase) = appDatabase.petDao()
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferencesHelper(@ApplicationContext appContext: Context)=SharedPreferencesHelper(appContext)
 }

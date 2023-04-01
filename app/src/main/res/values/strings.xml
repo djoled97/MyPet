@@ -25,4 +25,7 @@
     <string name="date_placeholder">DD/MM/YYYY</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="or">- OR -</string>
+    <string name="sign_in_later"><u>Sign in later </u></string>
+    <string name="sign_in_with_google">Sign in with Google</string>
 </resources>

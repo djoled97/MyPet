@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "305765447460-sgj5253lbete6ush5teij578manlcjlh.apps.googleusercontent.com",
+          "client_id": "305765447460-ssg34gv50m6h6au00i4m37tlc4i1phas.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mypet",
+            "certificate_hash": "dddf5984072a21649a7faa561e73a088f585935a"
+          }
+        },
+        {
+          "client_id": "305765447460-7ku83jvuddgsdj9umo7lhugmsdtskofp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "305765447460-sgj5253lbete6ush5teij578manlcjlh.apps.googleusercontent.com",
+              "client_id": "305765447460-7ku83jvuddgsdj9umo7lhugmsdtskofp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
