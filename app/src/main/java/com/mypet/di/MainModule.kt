@@ -34,7 +34,4 @@ object MainModule {
     @Singleton
     fun providePetDao(appDatabase: AppDatabase) = appDatabase.petDao()
 
-    @Provides
-    @Singleton
-    fun provideSharedPreferencesHelper(@ApplicationContext appContext: Context)=SharedPreferencesHelper(appContext)
 }

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/petNameLayout"
+            android:id="@+id/tes3"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -53,8 +53,8 @@
             android:layout_marginEnd="10dp"
             android:hint="@string/pet_form_pet_type"
             app:layout_constraintEnd_toStartOf="@+id/petBreedLayout"
-            app:layout_constraintStart_toStartOf="@+id/petNameLayout"
-            app:layout_constraintTop_toBottomOf="@+id/petNameLayout">
+            app:layout_constraintStart_toStartOf="@+id/tes3"
+            app:layout_constraintTop_toBottomOf="@+id/tes3">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/petType"
@@ -73,8 +73,8 @@
             android:layout_marginTop="10dp"
             android:enabled="false"
             android:hint="@string/pet_form_breed"
-            app:layout_constraintEnd_toEndOf="@+id/petNameLayout"
-            app:layout_constraintTop_toBottomOf="@+id/petNameLayout">
+            app:layout_constraintEnd_toEndOf="@+id/tes3"
+            app:layout_constraintTop_toBottomOf="@+id/tes3">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/petBreed"

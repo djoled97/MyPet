@@ -16,4 +16,7 @@ interface BreedDao {
     @Insert
     fun addType(breed:Breed):Long
 
+    @Query("SELECT * FROM Breed where id LIKE :id")
+    fun getBreedById(id: Long): Breed
+
 }

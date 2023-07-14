@@ -9,5 +9,6 @@ class BreedRepository @Inject constructor(private val breedDao: BreedDao) {
 
     fun getIdByBreed(breed: String) = breedDao.getIdByBreed(breed)
 
+    fun getBreedById(id:Long)=breedDao.getBreedById(id)
     fun addType(breed: Breed) = breedDao.addType(breed)
 }

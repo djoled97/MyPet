@@ -6,5 +6,6 @@ import javax.inject.Singleton
 class PetRepository @Inject constructor(private val petDao: PetDao) {
 
     fun createPet(pet: Pet) = petDao.createPet(pet)
-
+    
+    fun getPet()=petDao.getPet()
 }

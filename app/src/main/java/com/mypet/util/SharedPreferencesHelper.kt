@@ -2,16 +2,20 @@ package com.mypet.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPreferencesHelper @Inject constructor(val context: Context) {
+
+@Singleton
+class SharedPreferencesHelper @Inject constructor(@ApplicationContext context: Context) {
     private val preferences: SharedPreferences =
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).apply {
-            edit().putBoolean(ONBOARDING, true).apply()
-        }
+        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+
     val onboarding = preferences.getBoolean(ONBOARDING, true)
 
-    fun updateOnboardingValue() = preferences.edit().putBoolean(ONBOARDING, onboarding).apply()
+    private  val editor=preferences.edit()
+    fun updateOnboardingValue() = editor.putBoolean(ONBOARDING, false).commit()
 
 
     companion object {
