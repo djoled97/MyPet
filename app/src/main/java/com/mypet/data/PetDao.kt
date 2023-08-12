@@ -10,6 +10,6 @@ interface PetDao {
     @Insert
     fun createPet(pet: Pet)
 
-    @Query("SELECT * from pet LIMIT 1")
+    @Query("SELECT * from Pet LIMIT 1")
     fun getPet():Pet
 }

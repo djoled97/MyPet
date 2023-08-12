@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.mypet.R
 import com.mypet.databinding.FragmentEventsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EventsFragment : Fragment() {
 
     private var _binding: FragmentEventsBinding? = null
+    private val viewModel: EventsViewModel by viewModels()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,10 +27,19 @@ class EventsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val eventsViewModel =
-            ViewModelProvider(this).get(EventsViewModel::class.java)
 
         _binding = FragmentEventsBinding.inflate(inflater, container, false)
+        viewModel.eventListLiveData.observe(viewLifecycleOwner){events->
+            binding.eventList.layoutManager = LinearLayoutManager(context)
+            binding.eventList.adapter = EventsAdapter(events)
+        }
+        viewModel.getAllEvents()
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_navigation_events_to_eventDialogFragment
+            )
+        }
+
 
         return binding.root
     }

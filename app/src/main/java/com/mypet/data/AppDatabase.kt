@@ -6,13 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import dagger.hilt.android.qualifiers.ApplicationContext
 
-@Database(entities = [Breed::class,Pet::class], version = 1)
+@Database(entities = [Breed::class,Pet::class,Event::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
 
     abstract fun breedDao(): BreedDao
     abstract fun petDao(): PetDao
-
+    abstract fun eventDao(): EventDao
 
     companion object {
         private const val DB_NAME = "pets-db"

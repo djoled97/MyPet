@@ -1,6 +1,7 @@
 package com.mypet.ui.onboarding
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.mypet.MainActivity
 import com.mypet.R
 import com.mypet.data.PetDto
 import com.mypet.databinding.FragmentOnboardingSecondStepBinding
@@ -108,8 +110,8 @@ class OnboardingSecondStep : Fragment() {
             val microchip = binding.petMicrochip.text.toString()
             viewModel.createPet(PetDto(name, breed, type, gender, color, birthday, microchip))
             sharedPreferencesHelper.updateOnboardingValue()
+            startActivity(Intent(this@OnboardingSecondStep.requireActivity(), MainActivity::class.java))
             requireActivity().finish()
-
         }
 
         viewModel.breedLiveData.observe(viewLifecycleOwner) {

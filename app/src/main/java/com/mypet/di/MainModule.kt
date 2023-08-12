@@ -34,4 +34,8 @@ object MainModule {
     @Singleton
     fun providePetDao(appDatabase: AppDatabase) = appDatabase.petDao()
 
+    @Provides
+    @Singleton
+    fun provideEventDao(appDatabase: AppDatabase) = appDatabase.eventDao()
+
 }

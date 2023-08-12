@@ -17,10 +17,15 @@ class SharedPreferencesHelper @Inject constructor(@ApplicationContext context: C
     private  val editor=preferences.edit()
     fun updateOnboardingValue() = editor.putBoolean(ONBOARDING, false).commit()
 
+    val profileImageUri= preferences.getString(IMAGE_URI,"")
+
+    fun updateProfileimageUri(imgUri:String)=editor.putString(IMAGE_URI,imgUri).commit()
 
     companion object {
         private const val PREF_NAME = "app_preferences"
         private const val ONBOARDING = "onboarding"
+        private const val IMAGE_URI = "imageUri"
+
 
     }
 }

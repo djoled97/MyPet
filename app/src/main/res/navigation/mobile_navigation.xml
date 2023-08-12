@@ -15,5 +15,17 @@
         android:id="@+id/navigation_events"
         android:name="com.mypet.ui.events.EventsFragment"
         android:label="@string/title_events"
-        tools:layout="@layout/fragment_events" />
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_navigation_events_to_eventDialogFragment"
+            app:destination="@id/eventDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/eventDialogFragment"
+        android:name="com.mypet.ui.events.EventDialogFragment"
+        android:label="EventDialogFragment" >
+        <action
+            android:id="@+id/action_eventDialogFragment_to_navigation_events"
+            app:destination="@id/navigation_events" />
+    </dialog>
 </navigation>
