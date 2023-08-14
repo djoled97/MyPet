@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mypet.R
 import com.mypet.databinding.FragmentEventsBinding
@@ -20,6 +18,7 @@ class EventsFragment : Fragment() {
     private var _binding: FragmentEventsBinding? = null
     private val viewModel: EventsViewModel by viewModels()
 
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -29,7 +28,7 @@ class EventsFragment : Fragment() {
     ): View {
 
         _binding = FragmentEventsBinding.inflate(inflater, container, false)
-        viewModel.eventListLiveData.observe(viewLifecycleOwner){events->
+        viewModel.eventListLiveData.observe(viewLifecycleOwner) { events ->
             binding.eventList.layoutManager = LinearLayoutManager(context)
             binding.eventList.adapter = EventsAdapter(events)
         }
